@@ -17,15 +17,19 @@
                                     <Icon type="ios-paper-outline" />
                                     任务中心
                                 </MenuItem>
-                                <Submenu name="3">
-                                    <template slot="title">
-                                        <Icon type="ios-photos-outline" />
-                                        产品分类
-                                    </template>
-                                    <!--<MenuGroup title="使用">-->
-                                    <MenuItem name="3-1" v-for="data in cheDatas" :key="data . keynum" :to="{path:'/product/'+data.id}">{{data.classname}}</MenuItem>
-                                    <!--</MenuGroup>-->
-                                </Submenu>
+                                <MenuItem name="3" :to="{path:'/classificationdetails?data='+(new Date()).toString()}">
+                                    <Icon type="ios-photos-outline" />
+                                    产品平台
+                                </MenuItem>
+                                <!--<Submenu name="3">-->
+                                    <!--<template slot="title">-->
+                                        <!--<Icon type="ios-photos-outline" />-->
+                                        <!--产品展示-->
+                                    <!--</template>-->
+                                    <!--&lt;!&ndash;<MenuGroup title="使用">&ndash;&gt;-->
+                                    <!--<MenuItem name="3-1" v-for="data in cheDatas" :key="data . keynum" ">{{data.classname}}</MenuItem>-->
+                                    <!--&lt;!&ndash;</MenuGroup>&ndash;&gt;-->
+                                <!--</Submenu>-->
                                 <MenuItem name="4">
                                     <Icon type="md-heart-outline" />
                                     关于我们
@@ -42,7 +46,7 @@
                         </Menu>
                     </Header>
                     <Content :style="{padding: '10px 5px'}">
-                        <router-view/>
+                        <router-view />
                     </Content>
                 </Layout>
             </i-col>
@@ -55,7 +59,7 @@
         name: "index",
         data: function () {
             return {
-                cheDatas: []
+                // cheDatas: [],
             };
         },
         methods: {
@@ -67,23 +71,23 @@
                     });
                 }
             },
-            initdata(){
-                let vm=this
-                vm.$axios.get("classifyManage/getAllClassify").then(function (data) {
-                    let result=data.data.result
-                    if (result.length>0){
-                        vm.cheDatas=result
-                    } else {
-                        vm.cheDatas=[{"id":null,"classname":"没有分类"}]
-                    }
-                }).catch(function (error) {
-                    console.info(error)
-                    // vm.data1=error.data
-                })
-            }
+            // initdata(){
+            //     let vm=this
+            //     vm.$axios.get("classifyManage/getAllClassify").then(function (data) {
+            //         let result=data.data.result
+            //         if (result.length>0){
+            //             vm.cheDatas=result
+            //         } else {
+            //             vm.cheDatas=[{"id":null,"classname":"没有分类"}]
+            //         }
+            //     }).catch(function (error) {
+            //         console.info(error)
+            //         // vm.data1=error.data
+            //     })
+            // }
         },
         created() {
-            this.initdata()
+            // this.initdata()
         }
     }
 

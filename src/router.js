@@ -2,7 +2,7 @@ import Vue from "vue";
 import Router from "vue-router";
 import index from "./components/index.vue"
 import home from "./view/home.vue"
-import product from "./view/product.vue"
+import classificationdetails from "./view/ClassificationDetails.vue"
 Vue.use(Router);
 // export const loginRouter = {
 //     path: '/login',
@@ -19,7 +19,7 @@ export const indexRouter = {
     redirect: '/home',
     children: [
         { path: 'home', title: '首页1', name: 'Home',component: home},
-        { path: 'product/:a', title: 'chanp', name: 'product',component: product},
+        { path: 'classificationdetails', title: '产品平台', name: 'classificationdetails',component: classificationdetails},
     ]
 };
 
@@ -37,6 +37,12 @@ const RouterConfig = {
 
 
 export const router = new Router(RouterConfig);
+
+router.beforeEach((to,from,next)=>{
+    console.info(to)
+    console.info(from)
+    next();
+})
 
 
 export default router;
