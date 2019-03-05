@@ -14,13 +14,21 @@ npm install axios -S
 ```vue
 npm install iview --save
 ```
-
-## Project setup
+### 3、安装vue-router
+```
+npm install vue-router
+```
+### 4、安装EDLint
+```vue
+npm install -g eslint
+eslint --init
+```
+## 项目初始化
 ```
 npm install
 ```
 
-### Compiles and hot-reloads for development
+### 项目启动
 ```
 npm run serve
 ```
