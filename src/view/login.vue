@@ -31,6 +31,7 @@
         data () {
             return {
                 imgList:[
+                    /* global require */
                     require("../assets/img/ver-1.png"),
                     require("../assets/img/ver-2.png"),
                     require("../assets/img/ver-3.png"),
