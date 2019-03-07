@@ -3,7 +3,7 @@
         <Row>
             <i-col span="18" push="3">
                 <Layout>
-                    <Header>
+                    <Header >
                         <Menu mode="horizontal" theme="dark" active-name="1" @on-select="open">
                             <div style="float: left;width: 100px;color: white">
                                 logo
@@ -34,13 +34,21 @@
                                     <Icon type="md-heart-outline" />
                                     关于我们
                                 </MenuItem>
-
-                                <MenuItem name="注册" style="float: right" >
+                                <MenuItem name="注册" style="float: right" to="/test" v-if="this.$store.state.islogin===false">
                                     注册
                                 </MenuItem>
-                                <MenuItem name="登录" style="float: right">
+                                <MenuItem name="登录" style="float: right" to="/login" v-if="this.$store.state.islogin===false">
                                     登录
                                 </MenuItem>
+
+                                <MenuItem name="logout" style="float: right" v-if="this.$store.state.islogin===true">
+                                    退出登录
+                                </MenuItem>
+
+                                <MenuItem name="用户名" style="float: right" to="/login" v-if="this.$store.state.islogin===true">
+                                    {{this.$store.state.user.username}}
+                                </MenuItem>
+
                             </div>
 
                         </Menu>
@@ -48,6 +56,9 @@
                     <Content :style="{padding: '10px 5px'}">
                         <router-view />
                     </Content>
+                    <Footer style="height: 50px;text-align: center;margin-top: 10px;margin-bottom: 20px ">
+                        蒙ICP备10000000号-1  蒙公网安备 100000000000000号 © 2019 XXXXXXXX版权所有
+                    </Footer>
                 </Layout>
             </i-col>
         </Row>
@@ -64,11 +75,15 @@
         },
         methods: {
             open(nodesc) {
+                let vm=this
                 if (nodesc === '4') {
-                    this.$Notice.open({
+                    vm.$Notice.open({
                         title: '未完成',
                         desc: '后台功能暂时未做'
                     });
+                }else if (nodesc === 'logout'){
+                    vm.$store.commit('setUser',null)
+                    vm.$router.go(0)
                 }
             },
             // initdata(){

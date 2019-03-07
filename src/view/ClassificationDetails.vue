@@ -2,49 +2,64 @@
     <div>
         <card style="margin-bottom: 20px;margin-top: 10px;font-family: '黑体';font-size: 14px;    ">
             <Row style="margin-left: 20px">
-                <i-col span="2" :class="{'colordisplay':timeselect}" style="cursor:pointer;" id="time" @click.native="time('time')">
+                <i-col span="2" :class="{'colordisplay':sortfield==='createtime'}" style="cursor:pointer;margin-top: 6px" id="time" @click.native="time('createtime')">
                     <Row >
                         <i-col span="15" >按时间</i-col>
-                        <i-col span="2" v-if="timeselect=== true"  style="line-height:15px">
-                            <Icon type="md-arrow-dropup" v-if="timeadta===true"/>
+                        <i-col span="2" v-if="sortfield==='createtime'"  style="line-height:15px">
+                            <Icon type="md-arrow-dropup" v-if="sortingdirection==='ASC'"/>
                             <Icon type="md-arrow-dropdown" v-else/>
                         </i-col>
                     </Row>
                 </i-col>
-                <i-col span="2" :class="{'colordisplay':hotselect}" style="cursor:pointer;" id="hot" @click.native="time('hot')">
+                <i-col span="2" :class="{'colordisplay':sortfield==='productscore'}" style="cursor:pointer;margin-top: 6px" id="hot" @click.native="time('productscore')">
                     <Row>
-                        <i-col span="15">按人气</i-col>
-                        <i-col span="2" v-if="hotselect=== true"  style="line-height:15px">
-                            <Icon type="md-arrow-dropup" v-if="hotdata===true"/>
+                        <i-col span="15">按评分</i-col>
+                        <i-col span="2" v-if="sortfield==='productscore'"  style="line-height:15px">
+                            <Icon type="md-arrow-dropup" v-if="sortingdirection==='ASC'"/>
                             <Icon type="md-arrow-dropdown" v-else/>
                         </i-col>
                     </Row>
+                </i-col>
+                <i-col span="1" offset="1"  style="margin-top: 6px">
+                    分类：
+                </i-col>
+                <i-col span="2"  style="width:150px" >
+                    <Select v-model="classifyselect" clearable filterable @on-change="getmeroproduct" >
+                        <Option v-for="item in classify" :value="item.id" :key="item.id">{{ item.classname }}</Option>
+                    </Select>
+                </i-col>
+                <i-col span="2" offset="5" style="width: 200px">
+                    <Input v-model="productselect" @on-enter="getmeroproduct" placeholder="商品名称" clearable  />
+                </i-col>
+                <i-col span="1">
+                    <Button  icon="ios-search"  @click="getmeroproduct"></Button>
                 </i-col>
             </Row>
         </card>
         <card v-if="products.length===0">没有产品</card>
-        <Row :gutter="30" style="margin-left: 20px" v-else>
-
-            <i-col span="11" v-for="p in products" :key="p .num">
-                <card>
+        <Row type="flex" justify="space-around" style="margin-left: 20px" v-else>
+            <i-col span="4"  style="width: 250px;height: 270px" v-for="p in products" :key="p.id" >
+                <router-link :to="'/aa/'+p.id" style="color: black">
+                <card style="width: 250px;height: 270px" >
                     <Row>
-                        <i-col span="6">
+                        <i-col>
                             <img name="hava" :src="defaultimage"
-                                 v-if="p.defaultImage === null||p.defaultImage === 'null'" width="50px" height="100px">
-                            <img name="no" :src="p.defaultImage" v-else width="50px" height="100px">
+                                 v-if="p.defaultImage === null||p.defaultImage === 'null'" width="200px" height="200px">
+                            <img name="no" :src="p.defaultImage" v-else width="200px" height="200px">
                         </i-col>
-                        <i-col span="18">
+                        <i-col>
                             <ul>
                                 <li>
-                                    产品名称：{{p.productname}}
+                                    {{p.productname}}
                                 </li>
                                 <li>
-                                    产品介绍：{{p.content}}
+                                    <router-link to="/">{{p.username}}</router-link> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  <Rate disabled v-model="p.productscore" />
                                 </li>
                             </ul>
                         </i-col>
                     </Row>
                 </card>
+                </router-link>
             </i-col>
         </Row>
         <BackTop></BackTop>
@@ -61,83 +76,34 @@
                 classifyid: "",
                 classify:[],
                 products:[],
-                timeselect:false,
-                hotselect:false,
-                timeadta:false,
-                hotdata:false,
+                sortfield:"createtime",
+                sortingdirection:'DESC',
+                classifyselect:"",
+                productselect:''
             }
         },
         methods: {
-            time:function (a) {
+            time:function (name) {
                 let vm=this
-                console.info(a)
-                if (a==='time'){
-                    if (vm.timeselect){
-                        vm.timeadta=!vm.timeadta
-                        let a=''
-                        if (vm.timeadta) {
-                            a='ASC'
-                        }else {
-                            a='DESC'
-                        }
-                        let body={
-                            "sortfield": "createtime",
-                            "sortingdirection": a
-                        }
-                        this.getmeroproduct(body)
-                    }else {
-                        vm.timeselect=true
-                        vm.hotselect=false
-                        vm.timeadta=false
-                        vm.hotdata=false
-                        let body={
-                            "sortfield": "createtime",
-                            "sortingdirection": "DESC"
-                        }
-                        this.getmeroproduct(body)
-                    }
-                } else if(a==='hot'){
-                    if (vm.hotselect){
-                        vm.hotdata=!vm.hotdata
-                        let a=''
-                        if (vm.hotdata) {
-                            a='ASC'
-                        }else {
-                            a='DESC'
-                        }
-                        let body={
-                            "sortfield": "productscore",
-                            "sortingdirection": a
-                        }
-                        this.getmeroproduct(body)
-                    }else {
-                        vm.timeselect=false
-                        vm.hotselect=true
-                        vm.timeadta=false
-                        vm.hotdata=false
-                        let body={
-                            "sortfield": "productscore",
-                            "sortingdirection": "DESC"
-                        }
-                        this.getmeroproduct(body)
-                    }
+                if (vm.sortfield===name){
+                   if (vm.sortingdirection==='DESC'){
+                       vm.sortingdirection='ASC'
+                   } else {
+                       vm.sortingdirection='DESC'
+                   }
+                } else{
+                    vm.sortfield=name
+                    vm.sortingdirection='DESC'
                 }
+                this.getmeroproduct()
             },
             init() {
-                // if (this.$route.params.a === null || this.$route.params.a === 'null') {
-                //     this.$router.go(-1)
-                // }
-                // this.classifyid = this.$route.params.a
                 this.getClass()
                 let body={
                     "sortfield": "createtime",
                     "sortingdirection": "DESC"
                 }
                 this.getmeroproduct(body)
-                this.timeselect=true
-                this.hotselect=false
-
-
             },
             getClass(){
                 let vm=this
@@ -157,8 +123,17 @@
                     // vm.data1=error.data
                 })
             },
-            getmeroproduct(body){
+            getmeroproduct(){
                 let vm=this
+                if(vm.classifyselect===undefined){
+                    vm.classifyselect=''
+                }
+                let body={
+                    "productname":vm.productselect,
+                    "classid":vm.classifyselect,
+                    "sortfield": vm.sortfield,
+                    "sortingdirection": vm.sortingdirection
+                }
                 vm.$axios.post("productManage/getmeroProduct?ispage=false",body).then(function (data) {
                     let result=data.data.result
                     if (result.length>0){
@@ -172,13 +147,6 @@
                 })
             }
         },
-        watch: {
-            "$route": {
-                handler() {
-                    this.init()
-                }
-            }
-        },
         created() {
             this.init()
         }
@@ -189,4 +157,8 @@
     .colordisplay {
         color: red;
     }
+    li {list-style-type:none;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;}
 </style>

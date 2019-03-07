@@ -23,6 +23,14 @@ npm install vue-router
 npm install -g eslint
 eslint --init
 ```
+### 5、安装vue-drag-verify验证组件
+```vue
+npm install vue-drag-verify --save
+```
+### 5、安装 cookie 组件
+```vue
+npm install vue-cookies --save
+```
 ## 项目初始化
 ```
 npm install
