@@ -6,14 +6,17 @@
                     <Header >
                         <Menu mode="horizontal" theme="dark" active-name="1" @on-select="open">
                             <div style="float: left;width: 100px;color: white">
-                                logo
+                                <span v-if="$store.state.webdata.logoImage===null || $store.state.webdata.logoImage===undefined || $store.state.webdata.logoImage===''">
+                                    logo
+                                </span>
+                                <img :src="$store.state.webdata.logoImage" alt="logo" style="width: 100px;height: 60px" v-else>
                             </div>
                             <div>
                                 <MenuItem name="1" to="/home">
                                     <Icon type="ios-home-outline" />
                                     首页
                                 </MenuItem>
-                                <MenuItem name="2" to="/">
+                                <MenuItem name="2" to="/TaskationDetails">
                                     <Icon type="ios-paper-outline" />
                                     任务中心
                                 </MenuItem>
@@ -34,7 +37,7 @@
                                     <Icon type="md-heart-outline" />
                                     关于我们
                                 </MenuItem>
-                                <MenuItem name="注册" style="float: right" to="/test" v-if="this.$store.state.islogin===false">
+                                <MenuItem name="注册" style="float: right" to="/register"  v-if="this.$store.state.islogin===false">
                                     注册
                                 </MenuItem>
                                 <MenuItem name="登录" style="float: right" to="/login" v-if="this.$store.state.islogin===false">
@@ -45,15 +48,15 @@
                                     退出登录
                                 </MenuItem>
 
-                                <MenuItem name="用户名" style="float: right" to="/login" v-if="this.$store.state.islogin===true">
-                                    {{this.$store.state.user.username}}
+                                <MenuItem name="用户" style="float: right" to="/backstage" v-if="this.$store.state.islogin===true">
+                                    <Avatar :src="this.$store.state.user.userimg" />
                                 </MenuItem>
 
                             </div>
 
                         </Menu>
                     </Header>
-                    <Content :style="{padding: '10px 5px'}">
+                    <Content :style="{margin: '70px 10px 20px 10px', minHeight: '71vh'}">
                         <router-view />
                     </Content>
                     <Footer style="height: 50px;text-align: center;margin-top: 10px;margin-bottom: 20px ">
@@ -83,7 +86,7 @@
                     });
                 }else if (nodesc === 'logout'){
                     vm.$store.commit('setUser',null)
-                    vm.$router.go(0)
+                    vm.$router.push({path:'/home'});
                 }
             },
             // initdata(){

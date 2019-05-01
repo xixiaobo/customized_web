@@ -20,7 +20,7 @@
                         </i-col>
                     </Row>
                 </i-col>
-                <i-col span="1" offset="1"  style="margin-top: 6px">
+                <i-col span="2" offset="1"  style="margin-top: 6px">
                     分类：
                 </i-col>
                 <i-col span="2"  style="width:150px" >
@@ -39,7 +39,7 @@
         <card v-if="products.length===0">没有产品</card>
         <Row type="flex" justify="space-around" style="margin-left: 20px" v-else>
             <i-col span="4"  style="width: 250px;height: 270px" v-for="p in products" :key="p.id" >
-                <router-link :to="'/aa/'+p.id" style="color: black">
+                <router-link :to="'/productDetails/'+p.id" style="color: black">
                 <card style="width: 250px;height: 270px" >
                     <Row>
                         <i-col>
@@ -99,11 +99,7 @@
             },
             init() {
                 this.getClass()
-                let body={
-                    "sortfield": "createtime",
-                    "sortingdirection": "DESC"
-                }
-                this.getmeroproduct(body)
+                this.getmeroproduct()
             },
             getClass(){
                 let vm=this

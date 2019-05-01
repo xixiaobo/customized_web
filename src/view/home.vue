@@ -2,17 +2,8 @@
     <div>
         <card style="width: auto">
             <Carousel autoplay model=0 loop radius-dot :autoplay-speed="setting.autoplaySpeed">
-                <CarouselItem>
-                    <div class="demo-carousel"><img src="../assets/logo.png" height="200" width="200"/></div>
-                </CarouselItem>
-                <CarouselItem>
-                    <div class="demo-carousel"><img src="../assets/productonerror.jpg" height="200" width="200"/></div>
-                </CarouselItem>
-                <CarouselItem>
-                    <div class="demo-carousel">3</div>
-                </CarouselItem>
-                <CarouselItem>
-                    <div class="demo-carousel">4</div>
+                <CarouselItem  v-for="(item,index)  in $store.state.webdata.indexImgs" :key="index">
+                    <div class="demo-carousel"><img :src="item" /></div>
                 </CarouselItem>
             </Carousel>
         </card>
@@ -26,7 +17,7 @@
         <card v-if="newProductDatas.length===0">没有产品</card>
         <Row :gutter="30" style="margin-left: 20px" v-else>
             <i-col span="7" v-for="p in newProductDatas"   :key="p .num">
-                <router-link :to="'/aa/'+p.id" style="color: black">
+                <router-link :to="'/productDetails/'+p.id" style="color: black">
                 <card >
                     <Row>
                         <i-col span="6">
@@ -39,13 +30,13 @@
                                     产品名称：{{p.productname}}
                                 </li>
                                 <li>
-                                    产品介绍：{{p.content}}
+                                    产品介绍：{{p.productabstract}}
                                 </li>
                                 <li>
                                     所属分类：{{p.classname}}
                                 </li>
                                 <li>
-                                    <router-link to="/">{{p.username}}</router-link> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  <Rate disabled v-model="p.productscore" />
+                                    <router-link to="/">{{p.username}}</router-link> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  <Rate style="font-size: 15px"  disabled v-model="p.productscore" />
                                 </li>
 
                             </ul>
@@ -66,7 +57,7 @@
         <card v-if="hotProductDatas.length===0">没有产品</card>
         <Row :gutter="30" style="margin-left: 20px" v-else>
             <i-col span="7" v-for="p in hotProductDatas"   :key="p .num">
-                <router-link :to="'/aa/'+p.id" style="color: black">
+                <router-link :to="'/productDetails/'+p.id" style="color: black">
                     <card >
                         <Row>
                             <i-col span="6">
@@ -79,13 +70,13 @@
                                         产品名称：{{p.productname}}
                                     </li>
                                     <li>
-                                        产品介绍：{{p.content}}
+                                        产品介绍：{{p.productabstract}}
                                     </li>
                                     <li>
                                         所属分类：{{p.classname}}
                                     </li>
                                     <li>
-                                        <router-link to="/">{{p.username}}</router-link> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  <Rate disabled v-model="p.productscore" />
+                                        <router-link to="/">{{p.username}}</router-link> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  <Rate style="font-size: 15px"  disabled v-model="p.productscore" />
                                     </li>
 
                                 </ul>

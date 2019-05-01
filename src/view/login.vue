@@ -54,18 +54,16 @@
         },
         methods: {
             sutest(){
+                this.formInline.puzzle=true
                 this.$refs["formInline"].validate((valid) => {
                     if (valid) {
                         this.loginSubmit();
                     }else {
-                        this.$Message.success('请输入账号密码!');
+                        this.$Message.error('请输入账号密码!');
                     }
                 })
-                this.$Message.info("ok!!!")
-                this.formInline.puzzle=true
             },
             ertest(){
-                this.$Message.info("ERROR!!!")
                 this.formInline.puzzle=false
             },
             loginSubmit() {
@@ -82,7 +80,11 @@
                             let result=data.data.result
                             vm.$store.commit('setUser',result)
                             vm.formInline.puzzle=false
-                            vm.$router.push({path:'/home'});
+                            if(vm.$route.query.redirect!=null&&vm.$route.query.redirect!=undefined){
+                                vm.$router.push({path:vm.$route.query.redirect});
+                            }else {
+                                vm.$router.push({path:'/home'});
+                            }
                         } else {
                             vm.$Message.error('登录失败!');
                             vm.formInline.puzzle=false
@@ -98,6 +100,11 @@
                     vm.$store.commit('setUser',null)
                 }
 
+            }
+        },
+        created() {
+            if(this.$store.state.webdata.loginImgs.length>0){
+                this.imgList=this.$store.state.webdata.loginImgs
             }
         }
     };

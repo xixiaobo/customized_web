@@ -4,8 +4,9 @@ import axios from 'axios'
 // var url=serve.url
 // axios 配置
 axios.defaults.timeout = 5000;
-axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded;charset=UTF-8';
-axios.defaults.baseURL = 'http://39.106.141.224:8080';
+// axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded;charset=UTF-8';
+// axios.defaults.baseURL = 'http://39.106.141.224:8080';
+axios.defaults.baseURL = '/api/';
 
 //
 // //POST传参序列化

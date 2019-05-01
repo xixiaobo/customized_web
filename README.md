@@ -27,9 +27,14 @@ eslint --init
 ```vue
 npm install vue-drag-verify --save
 ```
-### 5、安装 cookie 组件
+### 5、安装 vue-cropper组件
 ```vue
-npm install vue-cookies --save
+npm install vue-cropper --save
+```
+### 6、安装 vue-wechat-title组件
+```vue
+npm install vue-wechat-title --save
+
 ```
 ## 项目初始化
 ```

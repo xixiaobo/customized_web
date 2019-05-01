@@ -265,10 +265,10 @@
                     if (Max_left > moveEnd_X && moveEnd_X > Min_left) {
                         self.displayTips = true
                         self.verification = true
-                        setTimeout(function () {
+                        // setTimeout(function () {
                             self.displayTips = false
                             self.initCanvas()
-                        }, 1000)
+                        // }, 1000)
                         /* 成功的回调函数 */
                         self.sliderimg="md-checkmark-circle"
                         self.resultdata=true
@@ -286,7 +286,7 @@
                     }
                 }
                 if (typeof(self.$refs.sliderBtn) !== 'undefined' && typeof (self.$refs.puzzleLost) !== 'undefined' && typeof (self.$refs.puzzleShadow) !== 'undefined') {
-                    setTimeout(function () {
+                    // setTimeout(function () {
                         self.$refs.sliderBtn.style.left = 0
                         self.$refs.sliderBtn.style.transition = 'left 0.5s'
                         self.$refs.puzzleLost.style.left = 0
@@ -294,7 +294,7 @@
                         self.$refs.puzzleShadow.style.left = 0
                         self.$refs.puzzleShadow.style.transition = 'left 0.5s'
                         self.moveIocn()
-                    }, 1000)
+                    // }, 1000)
                     self.$refs.sliderBtn.style.backgroundPosition = '0 -84px'
                 }
                 self.moveStart = ''
@@ -373,4 +373,12 @@
     #puzzle-lost{position:absolute;left:0;top:0;z-index:33;}
     .puzzle-lost-box{position:absolute;width:260px;height:116px;left:0;top:0;z-index:111;}
 
+    #puzzle{
+        -webkit-touch-callout: none; /* iOS Safari */
+        -webkit-user-select: none; /* Chrome/Safari/Opera */
+        -khtml-user-select: none; /* Konqueror */
+        -moz-user-select: none; /* Firefox */
+        -ms-user-select: none; /* Internet Explorer/Edge */
+        user-select: none; /* Non-prefixed version, currently not supported by any browser */
+    }
 </style>
