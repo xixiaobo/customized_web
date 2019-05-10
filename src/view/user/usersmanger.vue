@@ -275,7 +275,7 @@
 			},
 			toAddUser() {
 				this.$router.push({
-					name: 'usersMes_add'
+					name: 'adduser'
 				})
 			},
 			openModal(data) { // 修改表格信息模态框

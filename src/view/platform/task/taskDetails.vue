@@ -74,7 +74,7 @@
             </Form>
             <div slot="footer">
                 <Button @click="handleReturn" style="margin-left: 8px">返回</Button>
-                <Button type="primary" @click="handleSubmit('updataUserForm')">修改</Button>
+                <Button type="primary" @click="handleSubmit('addOrderdataForm')">确认</Button>
             </div>
         </Modal>
     </div>
@@ -127,7 +127,7 @@
 
             },
             handleReturn() {
-                this.modal = false;
+                this.model1 = false;
             },
             handleSubmit(name) { // 修改表格信息提交
                 let vm =this
